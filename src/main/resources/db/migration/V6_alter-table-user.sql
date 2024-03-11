@@ -1,0 +1,2 @@
+ALTER TABLE tb_user
+ALTER COLUMN accessLevel SET NOT NULL;
