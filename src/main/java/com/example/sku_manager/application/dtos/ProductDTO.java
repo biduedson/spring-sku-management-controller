@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
-public record CreateProductDTO(
+public record ProductDTO(
         Integer id,
         @NotBlank
         String sku,
