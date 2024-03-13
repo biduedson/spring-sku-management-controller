@@ -1,4 +1,4 @@
-package com.example.sku_manager.domain.product;
+package com.example.sku_manager.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,20 +17,21 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
     private   String name;
-    private  String imgUrl;
-    private  String properties;
     private Integer quantity;
+    @Temporal(TemporalType.DATE)
     private Date date;
-    private  String SKU;
-    private String GTIN;
+    private  String sku;
+    private  String imgurl;
+    private String gtin;
+    private  String properties;
 
-    public Product(String name, String imgUrl, String properties, Integer quantity, Date date, String SKU, String GTIN){
+    public Product(String name,Integer quantity, Date date,  String sku,  String imgurl,   String gtin, String properties){
         this.name = name;
-        this.imgUrl = imgUrl;
-        this.properties = properties;
+        this.imgurl = imgurl;
         this.quantity = quantity;
         this.date = date;
-        this.SKU = SKU;
-        this.GTIN = GTIN;
+        this.sku = sku;
+        this.gtin = gtin;
+        this.properties = properties;
     }
 }
