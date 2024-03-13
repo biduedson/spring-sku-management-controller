@@ -3,7 +3,6 @@ package com.example.sku_manager.config;
 import com.example.sku_manager.application.usecases.userServiceImpl.DeleteUserServiceImpl;
 import com.example.sku_manager.application.usecases.userServiceImpl.GetUserServiceImpl;
 import com.example.sku_manager.application.usecases.userServiceImpl.CreateUserServiceImpl;
-import com.example.sku_manager.application.usecases.UserUseCases;
 import com.example.sku_manager.application.usecases.userServiceImpl.UpdateUserServiceImpl;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.infrastructure.database.UserRepositoryDB;
