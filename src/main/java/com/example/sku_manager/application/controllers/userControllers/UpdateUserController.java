@@ -1,7 +1,7 @@
-package com.example.sku_manager.application.controllers;
+package com.example.sku_manager.application.controllers.userControllers;
 
-import com.example.sku_manager.application.dtos.UpdateUserDTO;
-import com.example.sku_manager.application.usecases.userServiceImpl.UpdateUserServiceImpl;
+import com.example.sku_manager.application.dtos.usersDTOs.UpdateUserDTO;
+import com.example.sku_manager.application.usecases.user.userService.UpdateUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UpdateUserController {
-
     @Autowired
-    UpdateUserServiceImpl updateUserServiceImpl;
-
+    UpdateUserService updateUserService;
     @PutMapping
     public ResponseEntity updateUser(@RequestBody @Valid UpdateUserDTO data){
-        HttpResponses response = updateUserServiceImpl.updateUser(data);
+        HttpResponses response = updateUserService.updateUser(data);
         return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
 
     }

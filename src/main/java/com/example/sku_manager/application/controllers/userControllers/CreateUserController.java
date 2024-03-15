@@ -1,7 +1,7 @@
-package com.example.sku_manager.application.controllers;
+package com.example.sku_manager.application.controllers.userControllers;
 
-import com.example.sku_manager.application.dtos.CreateUserUserDTO;
-import com.example.sku_manager.application.usecases.userServiceImpl.CreateUserServiceImpl;
+import com.example.sku_manager.application.dtos.usersDTOs.CreateUserUserDTO;
+import com.example.sku_manager.application.usecases.user.userService.CreateUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class CreateUserController {
     @Autowired
-    private CreateUserServiceImpl createUserServiceImpl;
+    private CreateUserService createUserService;
     @PostMapping
     public ResponseEntity newUser(@RequestBody @Valid CreateUserUserDTO data){
-        HttpResponses response = createUserServiceImpl.createUser(data);
+        HttpResponses response = createUserService.createUser(data);
         return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
 }

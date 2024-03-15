@@ -1,9 +1,8 @@
-package com.example.sku_manager.application.controllers;
+package com.example.sku_manager.application.controllers.userControllers;
 
-import com.example.sku_manager.application.dtos.DeleteUserDTO;
-import com.example.sku_manager.application.usecases.userServiceImpl.DeleteUserServiceImpl;
+import com.example.sku_manager.application.dtos.usersDTOs.DeleteUserDTO;
+import com.example.sku_manager.application.usecases.user.userService.DeleteUserService;
 import com.example.sku_manager.domain.HttpResponses;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("user")
 public class DeleteUserController {
     @Autowired
-    private DeleteUserServiceImpl deleteUserServiceImpl;
+    private DeleteUserService deleteUserService;
 @DeleteMapping
     public ResponseEntity DeleteUserServiceImpl(@RequestBody  DeleteUserDTO data){
-        HttpResponses responses = deleteUserServiceImpl.deleteUser(data);
+        HttpResponses responses = deleteUserService.deleteUser(data);
         return  ResponseEntity.status(responses.getStatusCode()).body(responses.getBody());
     }
 }
