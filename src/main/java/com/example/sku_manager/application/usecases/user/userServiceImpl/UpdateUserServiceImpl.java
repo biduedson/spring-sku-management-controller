@@ -22,9 +22,7 @@ public class UpdateUserServiceImpl  implements UpdateUserService {
     public HttpResponses updateUser(UpdateUserDTO data){
         boolean usernameExisting =  userRepositoryDB.findByUsername(data.username()) != null;
         boolean userEmailExisting =  userRepositoryDB.findByEmail(data.email()) != null;
-        HttpResponses response = new HttpResponses();
         Optional<User> userOptional = userRepositoryDB.findById(data.id());
-
 
         if (userOptional.isPresent()){
             User user = userOptional.get();
@@ -49,7 +47,7 @@ public class UpdateUserServiceImpl  implements UpdateUserService {
             User userUpdated = userRepositoryDB.save(user);
             UserView userUpdatedView = userRepositoryDB.findProjectedById(data.id());
             httpResponse.setStatusCode(200);
-            response.setBody("Usuario Atualizado com sucesso.");
+            httpResponse.setBody("Usuario Atualizado com sucesso.");
             httpResponse.setBody(userUpdatedView);
         }else{
             httpResponse.setStatusCode(400);
