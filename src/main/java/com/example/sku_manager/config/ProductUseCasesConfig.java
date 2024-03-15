@@ -4,6 +4,7 @@ import com.example.sku_manager.application.usecases.ProductUseCases;
 import com.example.sku_manager.application.usecases.product.productServiceImpl.CreateProductServiceImpl;
 import com.example.sku_manager.application.usecases.product.productServiceImpl.DeleteProductServiceImpl;
 import com.example.sku_manager.application.usecases.product.productServiceImpl.GetAllProductServiceImpl;
+import com.example.sku_manager.application.usecases.product.productServiceImpl.UpdateProductServiceImpl;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.infrastructure.database.ProductRepositoryDB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class ProductUseCasesConfig {
     @Bean
     public  static DeleteProductServiceImpl deleteProductServiceImpl(ProductRepositoryDB productRepositoryDB, HttpResponses httpResponses){
         return new DeleteProductServiceImpl(productRepositoryDB, httpResponses);
+    }
+
+    @Bean
+    public static UpdateProductServiceImpl updateProductServiceimpl(ProductRepositoryDB productRepositoryDB, HttpResponses httpResponses){
+        return  new UpdateProductServiceImpl(productRepositoryDB,httpResponses);
     }
 }
