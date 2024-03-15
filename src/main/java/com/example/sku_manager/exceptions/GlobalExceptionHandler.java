@@ -1,5 +1,6 @@
 package com.example.sku_manager.exceptions;
 
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity errorintegrity( DataIntegrityViolationException e){
         String messageDetails = e.getRootCause().getMessage();
         return ResponseEntity.badRequest().body("Erro de validação: " + messageDetails + ".");
+    }
+
+    @ExceptionHandler(JDBCConnectionException.class)
+    public ResponseEntity handleJDBCConnectionException(JDBCConnectionException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro de conexão com o banco de dados: " + e.getMessage());
     }
 }
