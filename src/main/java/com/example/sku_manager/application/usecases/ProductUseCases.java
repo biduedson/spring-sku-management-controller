@@ -1,6 +1,6 @@
 package com.example.sku_manager.application.usecases;
 
-import com.example.sku_manager.application.dtos.ProductDTO;
+import com.example.sku_manager.application.dtos.productDTOs.ProductDTO;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.domain.Product;
 import com.example.sku_manager.infrastructure.database.ProductRepositoryDB;
@@ -21,44 +21,7 @@ public class ProductUseCases {
     }
 
 
-    public  HttpResponses allProducts(){
-        List<Product> products = productRepositoryDB.findAll();
-           httpResponse.setStatusCode(200);
-           httpResponse.setBody(products);
-           return httpResponse;
-    }
-    public  HttpResponses newProduct(ProductDTO data){
-      Product product2 = productRepositoryDB.findBySku(data.sku());
-      System.out.println(data.sku() +  product2);
-      if(checkNameExistsByName(data.name())){
-            httpResponse.setStatusCode(400);
-            httpResponse.setBody("Já existe um produto cadastrado com este nome.");
-            return httpResponse;
-      }
 
-      if(checkSkuExistsByName(data.sku())){
-          httpResponse.setStatusCode(400);
-          httpResponse.setBody("Já existe um sku cadastrado com este sku.ja esta cadastrado.");
-          return  httpResponse;
-      }
-
-      if(checkImgUrlExistsByName(data.imgurl())){
-            httpResponse.setStatusCode(400);
-            httpResponse.setBody("Já existe uma imagem cadastrado com esta url.");
-            return  httpResponse;
-      }
-
-        if(checkGtinExistsByName(data.gtin())){
-            httpResponse.setStatusCode(400);
-            httpResponse.setBody("Já existe um gtin cadastrado com este gtin.");
-            return  httpResponse;
-        }
-        Product product = new Product( data.name(), data.quantity(),data.date(), data.sku(), data.imgurl(), data.gtin(), data.properties() );
-        productRepositoryDB.save(product);
-        httpResponse.setStatusCode(201);
-        httpResponse.setBody(product);
-        return  httpResponse;
-    }
 
     public HttpResponses updateProduct(ProductDTO data){
         if(checkProductExists(data.id())){

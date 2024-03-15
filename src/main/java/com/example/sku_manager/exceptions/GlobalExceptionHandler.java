@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity handleHttpMessageNotReadableException(HttpMessageNotReadableException ex){
         String errorMessage = ex.getMessage();
-        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro de leitura no campo: " + errorMessage);
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro de leitura: " + errorMessage);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
