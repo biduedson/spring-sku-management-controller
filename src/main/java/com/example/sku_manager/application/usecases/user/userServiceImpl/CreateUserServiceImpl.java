@@ -1,9 +1,8 @@
-package com.example.sku_manager.application.usecases.userServiceImpl;
+package com.example.sku_manager.application.usecases.user.userServiceImpl;
 
-import com.example.sku_manager.application.dtos.CreateUserUserDTO;
+import com.example.sku_manager.application.dtos.usersDTOs.CreateUserUserDTO;
 import com.example.sku_manager.application.interfaces.UserView;
-import com.example.sku_manager.application.usecases.CreateUserService;
-import com.example.sku_manager.application.usecases.UserService;
+import com.example.sku_manager.application.usecases.user.userService.CreateUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.domain.User;
 import com.example.sku_manager.infrastructure.database.UserRepositoryDB;
@@ -24,14 +23,9 @@ public  class CreateUserServiceImpl implements CreateUserService {
 
         if(usernameExisting || userEmailExisting){
             httpResponse.setStatusCode(400);
-            if(usernameExisting){
-                httpResponse.setBody("Já existe  um usuario com este username cadastrado.");
-                return httpResponse;
-            }
-            if(userEmailExisting){
-                httpResponse.setBody("Já existe  um usuario com este email cadastrado.");
-                return httpResponse;
-            }
+            httpResponse.setBody(usernameExisting ?
+                                 "Já existe  um usuario com este username cadastrado.":
+                                 "Já existe  um usuario com este email cadastrado.");
             return httpResponse;
         }
 

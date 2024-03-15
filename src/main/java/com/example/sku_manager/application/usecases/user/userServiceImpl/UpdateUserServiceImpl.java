@@ -1,8 +1,8 @@
-package com.example.sku_manager.application.usecases.userServiceImpl;
+package com.example.sku_manager.application.usecases.user.userServiceImpl;
 
-import com.example.sku_manager.application.dtos.UpdateUserDTO;
+import com.example.sku_manager.application.dtos.usersDTOs.UpdateUserDTO;
 import com.example.sku_manager.application.interfaces.UserView;
-import com.example.sku_manager.application.usecases.UpdateUserService;
+import com.example.sku_manager.application.usecases.user.userService.UpdateUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.domain.User;
 import com.example.sku_manager.infrastructure.database.UserRepositoryDB;
@@ -25,38 +25,31 @@ public class UpdateUserServiceImpl  implements UpdateUserService {
         HttpResponses response = new HttpResponses();
         Optional<User> userOptional = userRepositoryDB.findById(data.id());
 
-System.out.println(data.id());
+
         if (userOptional.isPresent()){
             User user = userOptional.get();
-            if( user.getUsername().equals(data.username()) ){
+            if( user.getUsername().equals(data.username()) || user.getEmail().equals(data.email()) ){
                 httpResponse.setStatusCode(400);
-                httpResponse.setBody("O novo username deve ser diferente do username atual");
-                return httpResponse;
-            }
-            if(user.getEmail().equals(data.email()) ){
-                httpResponse.setStatusCode(400);
-                httpResponse.setBody("O novo email  deve ser diferente do email atual");
+                httpResponse.setBody(user.getUsername().equals(data.username()) ?
+                                     "O novo username deve ser diferente do username atual":
+                                     "O novo email  deve ser diferente do email atual");
                 return httpResponse;
             }
 
-            if(usernameExisting ){
+            if(usernameExisting || userEmailExisting){
                 httpResponse.setStatusCode(400);
-                httpResponse.setBody("Já existe  um usuario com este username cadastrado.");
+                httpResponse.setBody(usernameExisting ?
+                                    "Já existe  um usuario com este username cadastrado.":
+                                    "Já existe  um usuario com este email cadastrado.");
                 return httpResponse;
             }
 
-            if(userEmailExisting){
-                httpResponse.setStatusCode(400);
-                httpResponse.setBody("Já existe  um usuario com este email cadastrado.");
-                return httpResponse;
-            }
-
-            response.setBody("Usuario Atualizado com sucesso.");
             user.setUsername(data.username());
             user.setEmail(data.email());
-            httpResponse.setStatusCode(200);
             User userUpdated = userRepositoryDB.save(user);
             UserView userUpdatedView = userRepositoryDB.findProjectedById(data.id());
+            httpResponse.setStatusCode(200);
+            response.setBody("Usuario Atualizado com sucesso.");
             httpResponse.setBody(userUpdatedView);
         }else{
             httpResponse.setStatusCode(400);
@@ -66,13 +59,4 @@ System.out.println(data.id());
         return  httpResponse;
     }
 
-    public boolean emailExisting(String email){
-        User user =  userRepositoryDB.findByEmail(email);
-        return user != null;
-    }
-
-    public boolean userExisting(Integer id){
-        Optional<User> user = userRepositoryDB.findById(id);
-        return user.get() != null;
-    }
 }

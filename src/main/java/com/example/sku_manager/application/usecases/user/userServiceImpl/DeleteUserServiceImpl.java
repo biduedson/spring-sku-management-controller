@@ -1,7 +1,7 @@
-package com.example.sku_manager.application.usecases.userServiceImpl;
+package com.example.sku_manager.application.usecases.user.userServiceImpl;
 
-import com.example.sku_manager.application.dtos.DeleteUserDTO;
-import com.example.sku_manager.application.usecases.DeleteUserService;
+import com.example.sku_manager.application.dtos.usersDTOs.DeleteUserDTO;
+import com.example.sku_manager.application.usecases.user.userService.DeleteUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.infrastructure.database.UserRepositoryDB;
 

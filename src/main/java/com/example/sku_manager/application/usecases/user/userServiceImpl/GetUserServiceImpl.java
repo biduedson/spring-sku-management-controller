@@ -1,10 +1,9 @@
-package com.example.sku_manager.application.usecases.userServiceImpl;
+package com.example.sku_manager.application.usecases.user.userServiceImpl;
 
 import com.example.sku_manager.application.interfaces.UserView;
-import com.example.sku_manager.application.usecases.GetUserService;
+import com.example.sku_manager.application.usecases.user.userService.GetUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.infrastructure.database.UserRepositoryDB;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
