@@ -1,4 +1,4 @@
-package com.example.sku_manager.application.dtos;
+package com.example.sku_manager.application.dtos.usersDTOs;
 
 import jakarta.validation.constraints.NotBlank;
 
