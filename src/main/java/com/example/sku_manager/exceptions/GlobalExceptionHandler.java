@@ -1,6 +1,8 @@
 package com.example.sku_manager.exceptions;
 
+import com.example.sku_manager.domain.exceptions.DomainException;
 import org.hibernate.exception.JDBCConnectionException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(DomainException.class)
+    public ResponseEntity<String> handleDomainException(DomainException ex) {
+        return ResponseEntity.status(ex.getHttpStatus())
+                .body(ex.getMessage());
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity error404(MethodArgumentNotValidException ex){
@@ -35,5 +43,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JDBCConnectionException.class)
     public ResponseEntity handleJDBCConnectionException(JDBCConnectionException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro de conexão com o banco de dados: " + e.getMessage());
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity handleDataAccessException(DataAccessException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao acessar o banco de dados.");
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity ResponseEntityhandleException(Exception e) {
+        return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno do servidor");
     }
 }
