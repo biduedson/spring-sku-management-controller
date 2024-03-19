@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UpdateUserController {
-    @Autowired
-    UpdateUserService updateUserService;
+
+    private final UpdateUserService updateUserService;
+
+    public UpdateUserController(UpdateUserService updateUserService){
+        this.updateUserService = updateUserService;
+    }
     @PutMapping
     public ResponseEntity updateUser(@RequestBody @Valid UpdateUserDTO data){
         HttpResponses response = updateUserService.updateUser(data);

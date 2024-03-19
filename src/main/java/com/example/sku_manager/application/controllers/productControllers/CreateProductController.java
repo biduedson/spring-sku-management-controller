@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product")
 public class CreateProductController {
 
-    @Autowired
-    CreateProductService createProductService;
+    private final CreateProductService createProductService;
+
+
+    public CreateProductController(CreateProductService createProductService) {
+        this.createProductService = createProductService;
+    }
 
     @PostMapping
     public ResponseEntity createProduct(@RequestBody @Valid ProductDTO data){

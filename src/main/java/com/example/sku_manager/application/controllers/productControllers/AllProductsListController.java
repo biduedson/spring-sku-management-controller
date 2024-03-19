@@ -1,5 +1,4 @@
 package com.example.sku_manager.application.controllers.productControllers;
-
 import com.example.sku_manager.application.usecases.product.productService.GetAllProductService;
 import com.example.sku_manager.domain.HttpResponses;
 import org.springframework.beans.factory.annotation.Autowired;

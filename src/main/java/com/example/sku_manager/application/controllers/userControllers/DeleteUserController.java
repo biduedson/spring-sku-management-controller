@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class DeleteUserController {
-    @Autowired
-    private DeleteUserService deleteUserService;
+
+    private final DeleteUserService deleteUserService;
+
+    public DeleteUserController(DeleteUserService deleteUserService){
+        this.deleteUserService = deleteUserService;
+    }
 @DeleteMapping
     public ResponseEntity DeleteUserServiceImpl(@RequestBody  DeleteUserDTO data){
         HttpResponses responses = deleteUserService.deleteUser(data);
