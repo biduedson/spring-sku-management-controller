@@ -1,6 +1,6 @@
 package com.example.sku_manager.infrastructure.database;
 
-import com.example.sku_manager.application.interfaces.UserView;
+import com.example.sku_manager.interfaces.views.UserView;
 import com.example.sku_manager.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,4 +12,7 @@ public interface UserRepositoryDB  extends JpaRepository<User, Integer> {
     UserView  findProjectedById(Integer id);
     User findByUsername(String name);
     User findByEmail(String email);
+
+    boolean existsByEmail(String email);
+    boolean existsByUsername(String email);
 }

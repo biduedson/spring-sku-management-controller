@@ -1,6 +1,6 @@
 package com.example.sku_manager.application.usecases.user.userService;
 
-import com.example.sku_manager.application.interfaces.UserView;
+import com.example.sku_manager.interfaces.views.UserView;
 import com.example.sku_manager.domain.User;
 
 import java.util.List;
