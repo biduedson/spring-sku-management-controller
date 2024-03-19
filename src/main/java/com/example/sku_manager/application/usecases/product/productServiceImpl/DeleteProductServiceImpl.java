@@ -4,7 +4,9 @@ import com.example.sku_manager.application.dtos.productDTOs.DeleteProductDTO;
 import com.example.sku_manager.application.usecases.product.productService.DeleteProductService;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.infrastructure.database.ProductRepositoryDB;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DeleteProductServiceImpl implements DeleteProductService {
     private  final ProductRepositoryDB productRepositoryDB;
     private  final HttpResponses httpResponse;

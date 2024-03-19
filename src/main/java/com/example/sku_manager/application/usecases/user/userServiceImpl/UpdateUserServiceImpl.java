@@ -1,14 +1,15 @@
 package com.example.sku_manager.application.usecases.user.userServiceImpl;
 
 import com.example.sku_manager.application.dtos.usersDTOs.UpdateUserDTO;
-import com.example.sku_manager.application.interfaces.UserView;
+import com.example.sku_manager.interfaces.views.UserView;
 import com.example.sku_manager.application.usecases.user.userService.UpdateUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.domain.User;
 import com.example.sku_manager.infrastructure.database.UserRepositoryDB;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class UpdateUserServiceImpl  implements UpdateUserService {
     private  final UserRepositoryDB userRepositoryDB;
     private  final HttpResponses httpResponse;
@@ -20,19 +21,13 @@ public class UpdateUserServiceImpl  implements UpdateUserService {
 
     @Override
     public HttpResponses updateUser(UpdateUserDTO data){
-        boolean usernameExisting =  userRepositoryDB.findByUsername(data.username()) != null;
-        boolean userEmailExisting =  userRepositoryDB.findByEmail(data.email()) != null;
+
         Optional<User> userOptional = userRepositoryDB.findById(data.id());
 
         if (userOptional.isPresent()){
             User user = userOptional.get();
-            if( user.getUsername().equals(data.username()) || user.getEmail().equals(data.email()) ){
-                httpResponse.setStatusCode(400);
-                httpResponse.setBody(user.getUsername().equals(data.username()) ?
-                                     "O novo username deve ser diferente do username atual":
-                                     "O novo email  deve ser diferente do email atual");
-                return httpResponse;
-            }
+            boolean usernameExisting =  userRepositoryDB.existsByUsername(data.username())  && !user.getUsername().equals(data.username());
+            boolean userEmailExisting = userRepositoryDB.existsByEmail(data.email())&&  !user.getEmail().equals(data.email());
 
             if(usernameExisting || userEmailExisting){
                 httpResponse.setStatusCode(400);
@@ -50,7 +45,7 @@ public class UpdateUserServiceImpl  implements UpdateUserService {
             httpResponse.setBody("Usuario Atualizado com sucesso.");
             httpResponse.setBody(userUpdatedView);
         }else{
-            httpResponse.setStatusCode(400);
+            httpResponse.setStatusCode(404);
             httpResponse.setBody("Usuario não encontrado.");
             return httpResponse;
         }

@@ -4,7 +4,9 @@ import com.example.sku_manager.application.dtos.usersDTOs.DeleteUserDTO;
 import com.example.sku_manager.application.usecases.user.userService.DeleteUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.infrastructure.database.UserRepositoryDB;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DeleteUserServiceImpl  implements DeleteUserService {
 
     private  final UserRepositoryDB userRepositoryDB;
@@ -17,7 +19,6 @@ public class DeleteUserServiceImpl  implements DeleteUserService {
     @Override
     public HttpResponses  deleteUser(DeleteUserDTO data){
         boolean userExisting = !userRepositoryDB.findById(data.id()).isPresent();
-        System.out.println(data.id());
         HttpResponses response = new HttpResponses();
         if(!(data.id() instanceof Integer) ){
             httpResponse.setStatusCode(400);

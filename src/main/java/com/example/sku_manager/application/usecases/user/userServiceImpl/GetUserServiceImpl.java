@@ -1,12 +1,13 @@
 package com.example.sku_manager.application.usecases.user.userServiceImpl;
 
-import com.example.sku_manager.application.interfaces.UserView;
+import com.example.sku_manager.interfaces.views.UserView;
 import com.example.sku_manager.application.usecases.user.userService.GetUserService;
 import com.example.sku_manager.domain.HttpResponses;
 import com.example.sku_manager.infrastructure.database.UserRepositoryDB;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class GetUserServiceImpl implements GetUserService {
     private  final UserRepositoryDB userRepositoryDB;
     private  final HttpResponses httpResponse;
